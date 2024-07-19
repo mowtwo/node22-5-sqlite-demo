@@ -15,9 +15,9 @@ export class NodeStorage implements Storage {
 
   length: number
 
-  private constructor() {
-    this.tableName = `__nodeStorage_${Date.now()}`
-    this.db = new DatabaseSync(':memory:')
+  private constructor(location?: string, tableName?: string) {
+    this.tableName = tableName ?? `__nodeStorage_${Date.now()}`
+    this.db = new DatabaseSync(location ?? ':memory:')
     this.db.exec(`
       CREATE TABLE IF NOT EXISTS ${this.tableName}(
         key TEXT PRIMARY KEY,
@@ -79,5 +79,9 @@ export class NodeStorage implements Storage {
   }
   static setItem(key: string, value: string) {
     return NodeStorage.storage.setItem(key, value)
+  }
+
+  static __fork(location: string, tableName?: string) {
+    return new NodeStorage(location, tableName)
   }
 }

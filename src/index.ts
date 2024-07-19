@@ -1,4 +1,6 @@
-import { NodeStorage } from "./libs/storage.js";
+import { NodeStorage as _ } from "./libs/storage.js";
+
+const NodeStorage = _.__fork('data.sqlite', 'wtf')
 
 console.log(NodeStorage.getItem('name'))
 
@@ -20,10 +22,5 @@ console.log(NodeStorage.key(0))
 NodeStorage.setItem('age', '26')
 
 console.log(NodeStorage.getItem('age'))
-
-console.log(NodeStorage.length)
-
-NodeStorage.clear()
-
 
 console.log(NodeStorage.length)
